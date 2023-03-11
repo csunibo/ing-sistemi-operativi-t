@@ -1,11 +1,11 @@
-# \<Insegnamento\>
+# Sistemi Operativi - T
 
-Una raccolta di risorse per l'insegnamento di \<Insegnamento\> del Corso di
+Una raccolta di risorse per l'insegnamento di Sistemi Operativi - T del Corso di
 Laurea in Informatica.
 
 ## Presentazione
 
-[Questo sito](https://csunibo.github.io/<insegnamento>) elenca staticamente
+[Questo sito](https://csunibo.github.io/dynamik/ing-sistemi-operativi-t) elenca staticamente
 i contenuti della raccolta. Qui, documenti e presentazioni con estensione
 `.md`, `.tex`, `.doc`, `.docx`, `.ppt` o `.pptx` sono automaticamente
 convertiti in formato PDF.
