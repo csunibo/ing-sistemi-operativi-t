@@ -23,7 +23,7 @@ env:
 
 jobs:
   build:
-    name: Build pdfs out of tex,md and various doc files
+    name: Create upload artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 1
 
       - name: Generate build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-result
           path: .
@@ -42,7 +42,7 @@ jobs:
     needs: build
     steps:
       - name: Download compiled files
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-result
 
