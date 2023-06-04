@@ -1,3 +1,6 @@
+// Autore:              Eyad Issa
+// Anno accademico:     2022/23
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

@@ -1,3 +1,6 @@
+// Autore:              Eyad Issa
+// Anno accademico:     2022/23
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.function.Supplier;
