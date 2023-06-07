@@ -22,36 +22,22 @@ env:
   REGEX_INCLUDE: "\\.(pdf|link|txt|c|java)$"
 
 jobs:
-  build:
-    name: Create upload artifact
+  statik:
+    name: Generate and deploy static site
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
-
-      - name: Generate build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-result
-          path: .
-
-  statik:
-    name: Generate the static listing
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download compiled files
-        uses: actions/download-artifact@v3
-        with:
-          name: build-result
 
       - name: Install go
         uses: actions/setup-go@v3
         with:
           go-version: ">=1.18.0"
 
-      - uses: actions/cache@v3
+      - name: Restore go cache
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cache/go-build
@@ -63,18 +49,13 @@ jobs:
       - name: Install statik
         run: go install github.com/lucat1/statik@latest
 
-      - name: Update packages and install rsync
-        run: sudo apt install rsync
-
       - name: Generate static directory listing
         run: $(go env GOPATH)/bin/statik -page .github/workflows/page.gohtml -l -b "https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}/" -i "$REGEX_INCLUDE" site
 
-      - name: Generate site artifact
-        if: github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: statik-build
-          path: ./site
+          path: site
 
   deploy:
     name: Deploy to Github Pages
@@ -88,20 +69,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download static site artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: statik-build
-          path: site
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: site
-
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
