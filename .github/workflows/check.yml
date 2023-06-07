@@ -60,7 +60,7 @@ jobs:
         name: Lint file names under ./prove
         with:
           path: "./prove"
-          pattern: '^(\.gitkeep)|((scritto|orale)-(\d{4}-\d{2}-\d{2})$'
+          pattern: '^(\.gitkeep)|((scritto|orale)-(\d{4}-\d{2}-\d{2}))$'
           recursive: "false"
 
       - uses: csunibo/lint-filenames@master
