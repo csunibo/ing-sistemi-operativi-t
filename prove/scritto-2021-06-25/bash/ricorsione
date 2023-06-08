@@ -14,13 +14,12 @@ cd "$1"
 for file in * ; do    #per ogni elemento contenuto nella directory corrente:
     if test -f "$file" -a -r "$file" #$file è un file ordinario leggibile
     then
-        if [[ "$file" = *$3 ]]
+        if [[ "$file" = *$3 ]] #check sull'estensione del file
             then 
-            count=`grep -c "$2" "$file"`
+            count=`grep -c "$2" "$file"` #numero occorrenze stringa
             if test $count -gt 0; then 
                 echo "`pwd`/$file:`ls -l "$file" | awk '{print $5}'`:`stat --format="%G" "$file"`:$count">>"$4"
             fi
-
         fi
     elif test -d "$file"  #file è una directory
     then

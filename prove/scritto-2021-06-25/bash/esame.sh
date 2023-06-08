@@ -8,20 +8,24 @@
 #controllo argomenti
 if test $# -ne 4
 then echo Errore nel numero di parametri
-        exit
+        exit -1
 fi
+
 if [[ ! -d "$1" ]]; then
     echo Non è una cartella!
     exit -2
 fi
+
 if [[ ! -f "$4" ]]; then
     echo Non è un file!
     exit -3
 fi
+
 if [[ "$4" != /* ]]; then  
         echo $4 non è un percorso assoluto valido.
         exit 4
 fi
+
 if [[ "$3" != .??? ]]; then
     echo Formato stringa sbagliato
     exit -2

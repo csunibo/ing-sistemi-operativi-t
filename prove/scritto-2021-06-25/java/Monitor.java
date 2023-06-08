@@ -57,6 +57,7 @@ public class Monitor {
                 codaSala[tipo.ordinal()].await();
                 sospSala[tipo.ordinal()]--;
             }
+            
             //aggiorno risorsa
             if (tipo == Tipo.MIN) inSala+=2;
             else inSala++;
@@ -79,15 +80,20 @@ public class Monitor {
             codaAmb[c.ordinal()].await();
             sospAmb[c.ordinal()]--;
         }
+
         //aggiorno risorsa
         inAmbl++;
         if (tipo == Tipo.MIN) {
             inSala -= 2;
+
+            //si sono liberati 2 posti nella sala d'attesa
             if (sospSala[Tipo.ADL.ordinal()]>0) codaSala[Tipo.ADL.ordinal()].signalAll();
             else if (sospSala[Tipo.MIN.ordinal()]>0) codaSala[Tipo.MIN.ordinal()].signal();
         }
         else {
             inSala--;
+
+            //si è liberato un posto nella sala d'attesa
             if (sospSala[Tipo.ADL.ordinal()]>0) codaSala[Tipo.ADL.ordinal()].signal();
         }
         System.out.println("Utente di tipo " + tipo.name()+ " con codice "+ c.name()+ " entra nell'ambulatorio\n");
@@ -97,6 +103,8 @@ public class Monitor {
     public void esce () throws InterruptedException {
         l.lock();
         inAmbl--;
+
+        //priorità: 1.ROSSO 2.GIALLO 3.VERDE
         if (sospAmb[Codice.ROSSO.ordinal()]>0) codaAmb[Codice.ROSSO.ordinal()].signal();
         else if (sospAmb[Codice.GIALLO.ordinal()]>0) codaAmb[Codice.GIALLO.ordinal()].signal();
         else if (sospAmb[Codice.VERDE.ordinal()]>0) codaAmb[Codice.VERDE.ordinal()].signal();
