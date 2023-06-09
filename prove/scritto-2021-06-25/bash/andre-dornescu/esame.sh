@@ -21,7 +21,7 @@ if [[ ! -f "$4" ]]; then
     exit -3
 fi
 
-if [[ "$4" != /* ]]; then  
+if [[ "$4" != /* ]]; then
         echo $4 non è un percorso assoluto valido.
         exit 4
 fi
@@ -40,20 +40,20 @@ fout=$4
 #gestisco $0
 case "$0" in
     # il file comandi è stato invocato con un / Path assoluto.
-    /*) 
+    /*)
     dir_name=`dirname $0`
-    recursive_command="$dir_name/ricorsione"
+    recursive_command="$dir_name/ricorsione.sh"
     ;;
     */*)
     # il file comandi è stato invocato con un path relativo.
     dir_name=`dirname $0`
-    recursive_command="`pwd`/$dir_name/ricorsione"
+    recursive_command="`pwd`/$dir_name/ricorsione.sh"
     ;;
     *)
     #Path né assoluto né relativo, il comando è nel $PATH
-    recursive_command=ricorsione
+    recursive_command=ricorsione.sh
     ;;
 esac
 
-#innesco la ricorsione 
+#innesco la ricorsione
 "$recursive_command" "$dirin" "$string" "$ext" "$fout"
