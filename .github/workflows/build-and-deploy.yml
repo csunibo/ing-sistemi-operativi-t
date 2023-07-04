@@ -9,6 +9,6 @@ on:
 
 jobs:
   statik:
-    uses: csunibo/config/.github/workflows/deploy-statik.yml@main
+    uses: csunibo/config/.github/workflows/statik.yml@main
     with:
       regex_include: "\\.(pdf|link|txt|c|java|sh)$"
